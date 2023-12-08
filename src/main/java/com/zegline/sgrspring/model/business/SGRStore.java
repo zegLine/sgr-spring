@@ -1,12 +1,11 @@
 package com.zegline.sgrspring.model.business;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.util.List;
 
 @Entity
 public class SGRStore {
@@ -25,5 +24,8 @@ public class SGRStore {
     @Getter
     @Setter
     private String store_description;
+
+    @OneToMany(mappedBy = "store")
+    private List<SGRPurchase> purchases;
 
 }
