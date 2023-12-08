@@ -1,6 +1,8 @@
 package com.zegline.sgrspring.model.business;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -13,15 +15,18 @@ public class SGRPretGarantie {
     private long id;
 
     @Column
+    @Getter
+    @Setter
     private double price;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Getter
     @Column(nullable = false, updatable = false)
-    private Date ineffect_since;
+    private Date inEffectSince;
 
     @PrePersist
     public void prePersist() {
-        ineffect_since = new Date(); // Set the current timestamp before persisting
+        inEffectSince = new Date(); // Set the current timestamp before persisting
     }
 
 }
