@@ -64,4 +64,41 @@ public class SGRUserControllerTests {
         // Check that the user's password is hashed
         assertThat(passwordEncoder.matches("testpassword", createdUser.getPassword())).isTrue();
     }
+
+    @Test
+    public void testDuplicateUsername() throws Exception {
+        // Create 2 users with the same username
+        SGRUser user = new SGRUser();
+        SGRUser user2 = new SGRUser();
+        user.setUsername("testuser");
+        user2.setUsername("testuser");
+        user.setPassword("testpassword");
+        user2.setPassword("testpassword");
+
+        // clean db of test data from before
+        SGRUser existAlready = userRepository.findByUsername("testuser");
+        if (existAlready != null) {
+            userRepository.delete(existAlready);
+            userRepository.flush();
+        }
+
+        // Convert the user objects to JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        String userJson = objectMapper.writeValueAsString(user);
+        String user2Json = objectMapper.writeValueAsString(user2);
+
+        // Send a POST request to create the first user
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/user/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // Send a POST request to create the second user
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/user/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(user2Json))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+    }
 }
