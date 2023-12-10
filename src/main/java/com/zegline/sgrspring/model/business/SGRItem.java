@@ -2,6 +2,8 @@ package com.zegline.sgrspring.model.business;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class SGRItem {
 
@@ -15,4 +17,7 @@ public class SGRItem {
 
     @Column
     private double item_weight_kg;
+
+    @OneToMany(mappedBy = "item")
+    private List<SGRPurchase> purchases;
 }
