@@ -34,9 +34,6 @@ public class SGRItemServiceTests {
         SGRItem created = is.createItem(name, weight);
         String created_id = created.getId();
 
-        // Initialize the purchases collection
-        created.getPurchases();
-
         assertEquals(created.getItem_name(), name);
         Optional<SGRItem> opt_found = ir.findById(created_id);
         if (opt_found.isEmpty()) fail("SGRItem not found in Repo after created using Service");
