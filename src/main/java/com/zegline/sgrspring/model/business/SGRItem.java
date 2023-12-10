@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class SGRItem {
 
     @OneToMany(mappedBy = "item")
     @JsonIgnore
-    private List<SGRPurchase> purchases;
+    private List<SGRPurchase> purchases = new ArrayList<>();
 
     public SGRItem(String name) {
         this.item_name = name;
