@@ -22,11 +22,11 @@ public class SGRPurchase {
     @Temporal(TemporalType.TIMESTAMP)
     @Getter
     @Column(nullable = false, updatable = false)
-    private Date purchase_timestamp;
+    private Date purchaseTimestamp;
 
     @PrePersist
     public void prePersist() {
-        purchase_timestamp = new Date(); // Set the current timestamp before persisting
+        purchaseTimestamp = new Date(); // Set the current timestamp before persisting
     }
 
 }
