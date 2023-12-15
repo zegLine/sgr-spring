@@ -1,6 +1,7 @@
 package com.zegline.sgrspring.model.business;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.Date;
 
@@ -19,6 +20,7 @@ public class SGRPurchase {
     private SGRItem item;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Getter
     @Column(nullable = false, updatable = false)
     private Date purchase_timestamp;
 
