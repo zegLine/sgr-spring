@@ -24,7 +24,7 @@ public class SGRPurchaseService {
     }
 
     public SGRPretGarantie getGarantieObjForPurchase(SGRPurchase purchase) {
-        Date purchaseDate = purchase.getPurchase_timestamp();
+        Date purchaseDate = purchase.getPurchaseTimestamp();
 
         SGRPretGarantie priceAtPurchase = pgr.findFirstByInEffectSinceLessThanEqualOrderByInEffectSinceDesc(purchaseDate);
 
