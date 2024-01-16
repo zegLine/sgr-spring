@@ -2,6 +2,7 @@ package com.zegline.sgrspring.model.business;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -14,6 +15,8 @@ public class SGRPurchase {
     private String id;
 
     @ManyToOne
+    @Getter
+    @Setter
     private SGRStore store;
 
     @ManyToOne
@@ -24,9 +27,15 @@ public class SGRPurchase {
     @Column(nullable = false, updatable = false)
     private Date purchaseTimestamp;
 
+    public SGRPurchase() {}
+
     @PrePersist
     public void prePersist() {
         purchaseTimestamp = new Date(); // Set the current timestamp before persisting
+    }
+
+    public SGRPurchase(SGRItem c_item) {
+        this.item = c_item;
     }
 
 }
