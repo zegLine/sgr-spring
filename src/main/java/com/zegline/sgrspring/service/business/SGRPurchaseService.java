@@ -1,5 +1,6 @@
 package com.zegline.sgrspring.service.business;
 
+import com.zegline.sgrspring.model.business.SGRItem;
 import com.zegline.sgrspring.model.business.SGRPretGarantie;
 import com.zegline.sgrspring.model.business.SGRPurchase;
 import com.zegline.sgrspring.repository.business.SGRPretGarantieRepository;
@@ -35,6 +36,10 @@ public class SGRPurchaseService {
         SGRPretGarantie priceAtPurchase = getGarantieObjForPurchase(purchase);
 
         return priceAtPurchase.getPrice();
+    }
+
+    public SGRPurchase createPurchaseFromItem(SGRItem item) {
+        return new SGRPurchase(item);
     }
 
 }

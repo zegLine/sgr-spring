@@ -1,15 +1,16 @@
 package com.zegline.sgrspring.controller.business;
 
+import com.zegline.sgrspring.model.business.SGRItem;
+import com.zegline.sgrspring.model.business.SGRPurchase;
 import com.zegline.sgrspring.model.business.SGRStore;
+import com.zegline.sgrspring.repository.business.SGRItemRepository;
+import com.zegline.sgrspring.repository.business.SGRPurchaseRepository;
 import com.zegline.sgrspring.repository.business.SGRStoreRepository;
+import com.zegline.sgrspring.service.business.SGRItemService;
 import com.zegline.sgrspring.service.business.SGRStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.swing.text.html.Option;
@@ -21,10 +22,41 @@ import java.util.Optional;
 public class SGRStoreController {
 
     @Autowired
+    SGRItemRepository ir;
+
+    @Autowired
     SGRStoreService ss;
 
     @Autowired
     SGRStoreRepository sr;
+
+    @Autowired
+    SGRPurchaseRepository pr;
+
+    @PostMapping("/{storeId}/scan")
+    public ResponseEntity<SGRPurchase> scanItem(
+            @PathVariable String storeId,
+            @RequestParam String itemId) {
+
+        // Check for store existance
+        Optional<SGRStore> optionalSGRStore = sr.findById(storeId);
+        if (optionalSGRStore.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Check for item existance
+        Optional<SGRItem> optionalSGRItem = ir.findById(itemId);
+        if (optionalSGRItem.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Create and save new Purchase entity
+        SGRPurchase purchase = ss.createPurchase(optionalSGRStore.get(), optionalSGRItem.get());
+        pr.save(purchase);
+
+        // Return Purchase as OK ResponseEntity
+        return ResponseEntity.ok(purchase);
+    }
 
     @GetMapping("/{id}/garantie")
     public ResponseEntity<Double> getGarantieTotalForPeriod(

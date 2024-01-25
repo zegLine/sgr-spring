@@ -1,5 +1,6 @@
 package com.zegline.sgrspring.service.business;
 
+import com.zegline.sgrspring.model.business.SGRItem;
 import com.zegline.sgrspring.model.business.SGRPurchase;
 import com.zegline.sgrspring.model.business.SGRStore;
 import com.zegline.sgrspring.repository.business.SGRPurchaseRepository;
@@ -35,6 +36,13 @@ public class SGRStoreService {
         }
 
         return garantieTotal;
+    }
+
+    public SGRPurchase createPurchase(SGRStore store, SGRItem item) {
+        SGRPurchase newPurchase = ps.createPurchaseFromItem(item);
+        newPurchase.setStore(store);
+
+        return newPurchase;
     }
 
 }
