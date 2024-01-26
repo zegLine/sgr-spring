@@ -28,4 +28,9 @@ public class SGRStore {
     @OneToMany(mappedBy = "store")
     private List<SGRPurchase> purchases;
 
+    public SGRStore(String name, String desc) {
+        this.store_name = name;
+        this.store_description = desc;
+    }
+
 }

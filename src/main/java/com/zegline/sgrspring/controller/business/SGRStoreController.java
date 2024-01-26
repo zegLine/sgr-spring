@@ -9,12 +9,14 @@ import com.zegline.sgrspring.repository.business.SGRStoreRepository;
 import com.zegline.sgrspring.service.business.SGRItemService;
 import com.zegline.sgrspring.service.business.SGRStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.swing.text.html.Option;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -72,5 +74,15 @@ public class SGRStoreController {
         Double garantieTotal = ss.getGarantieForPeriod(optStore.get(), startDate, endDate);
         return ResponseEntity.ok(garantieTotal);
     }
+
+    @PostMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public SGRStore createStore(@RequestBody Map<String, Object> requestBody) {
+        String storeName = (String) requestBody.get("store_name");
+        String storeDesc = (String) requestBody.get("store_desc");
+
+        return ss.createStore(storeName, storeDesc);
+    }
+
 
 }

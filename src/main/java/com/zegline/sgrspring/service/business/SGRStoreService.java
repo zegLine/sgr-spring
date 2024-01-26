@@ -45,4 +45,9 @@ public class SGRStoreService {
         return newPurchase;
     }
 
+    public SGRStore createStore(String name, String desc) {
+        SGRStore newStore = new SGRStore(name, desc);
+        return sr.save(newStore);
+    }
+
 }
