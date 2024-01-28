@@ -1,5 +1,7 @@
 package com.zegline.sgrspring.controller.security;
 
+import com.zegline.sgrspring.model.security.SGRAuthResponse;
+import com.zegline.sgrspring.model.security.SGRAuthResponseType;
 import com.zegline.sgrspring.model.security.SGRLoginRequest;
 import com.zegline.sgrspring.service.security.SGRUserService;
 import com.zegline.sgrspring.utils.security.JWTUtil;
@@ -30,19 +32,19 @@ public class SGRAuthController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody SGRLoginRequest request) {
+    public ResponseEntity<SGRAuthResponse> loginUser(@RequestBody SGRLoginRequest request) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.username(), request.password())
             );
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new SGRAuthResponse(SGRAuthResponseType.SGR_AUTH_FAIL, ""));
         }
 
         UserDetails userDetails = userService.loadUserByUsername(request.username());
         String token = jwtUtil.generateToken(userDetails.getUsername());
 
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(new SGRAuthResponse(SGRAuthResponseType.SGR_AUTH_SUCCESS, token));
     }
 
 }
