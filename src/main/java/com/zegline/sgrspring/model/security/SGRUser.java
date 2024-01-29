@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Collection;
+
 @Getter
 @Entity
 public class SGRUser {
@@ -21,5 +23,18 @@ public class SGRUser {
 
     @Setter
     private String password;
+
+    @Getter
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "sgrUsers_sgrRoles",
+            joinColumns = @JoinColumn(
+                    name = "sgrUser_id", referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "sgrRole_id", referencedColumnName = "id"
+            )
+    )
+    private Collection<SGRRole> sgrRoles;
 
 }
