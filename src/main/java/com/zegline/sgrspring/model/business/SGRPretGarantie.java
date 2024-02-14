@@ -12,6 +12,7 @@ public class SGRPretGarantie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @Getter
     private long id;
 
     @Column
