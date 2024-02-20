@@ -10,6 +10,7 @@ import com.zegline.sgrspring.repository.business.paging.SGRStorePagingSortingRep
 import com.zegline.sgrspring.service.business.SGRItemService;
 import com.zegline.sgrspring.service.business.SGRStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -93,6 +94,6 @@ public class SGRStoreController {
 
     @GetMapping("/toate")
     public List<SGRStore> getStoresPaginated(@RequestParam int pageSize, @RequestParam int pageNumber) {
-        return sgrStorePagingSortingRepository.findAll(PageRequest.of(pageSize, pageNumber)).stream().toList();
+        return sgrStorePagingSortingRepository.findAll(PageRequest.of(pageNumber, pageSize)).stream().toList();
     }
 }

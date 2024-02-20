@@ -33,4 +33,6 @@ public class SGRStore {
         this.store_description = desc;
     }
 
+    public SGRStore() {}
+
 }
