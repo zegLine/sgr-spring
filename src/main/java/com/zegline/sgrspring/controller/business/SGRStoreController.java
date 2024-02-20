@@ -6,6 +6,7 @@ import com.zegline.sgrspring.model.business.SGRStore;
 import com.zegline.sgrspring.repository.business.SGRItemRepository;
 import com.zegline.sgrspring.repository.business.SGRPurchaseRepository;
 import com.zegline.sgrspring.repository.business.SGRStoreRepository;
+import com.zegline.sgrspring.repository.business.paging.SGRStorePagingSortingRepository;
 import com.zegline.sgrspring.service.business.SGRItemService;
 import com.zegline.sgrspring.service.business.SGRStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class SGRStoreController {
 
     @Autowired
     SGRStoreRepository sr;
+
+    @Autowired
+    SGRStorePagingSortingRepository sgrStorePagingSortingRepository;
 
     @Autowired
     SGRPurchaseRepository pr;
@@ -75,7 +79,7 @@ public class SGRStoreController {
         return ResponseEntity.ok(garantieTotal);
     }
 
-    @PostMapping("/")
+    @PostMapping("/nou")
     @ResponseStatus(HttpStatus.CREATED)
     public SGRStore createStore(@RequestBody Map<String, Object> requestBody) {
         String storeName = (String) requestBody.get("store_name");
