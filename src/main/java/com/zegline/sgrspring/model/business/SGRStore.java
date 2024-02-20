@@ -14,6 +14,7 @@ public class SGRStore {
     @GeneratedValue(generator = "sgrstore-generator")
     @GenericGenerator(name = "sgrstore-generator", type = com.zegline.sgrspring.utils.generator.SGRStoreIdGenerator.class)
     @Column(name = "id")
+    @Getter
     private String id;
 
     @Column(nullable = false, unique = true)
