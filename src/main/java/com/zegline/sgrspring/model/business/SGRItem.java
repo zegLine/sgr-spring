@@ -3,6 +3,7 @@ package com.zegline.sgrspring.model.business;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class SGRItem {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
+    @Getter
     private String id;
 
     @Column

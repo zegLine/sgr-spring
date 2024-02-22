@@ -33,7 +33,7 @@ public class SGRItemController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/")
+    @PostMapping("/nou")
     @ResponseStatus(HttpStatus.CREATED)
     public SGRItem createItem(@RequestBody Map<String, Object> requestBody) {
         String name = (String) requestBody.get("name");
