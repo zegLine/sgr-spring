@@ -6,6 +6,7 @@ import com.zegline.sgrspring.repository.business.SGRItemRepository;
 import com.zegline.sgrspring.service.business.SGRItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,19 @@ public class SGRItemController {
     SGRItemService sgrItemService;
 
     @GetMapping("/toate")
-    public Page<SGRItem> getAllItem(@RequestParam int pageSize, @RequestParam int pageNumber) {
-        return sgrItemService.getItemsPaginated(pageSize, pageNumber);
+    public ResponseEntity<Page<SGRItem>> getAllItem(@RequestParam int pageSize, @RequestParam int pageNumber, @RequestParam(required = false) String sortingColumn, @RequestParam(required = false) String sortingDirection) {
+        if (sortingColumn == null) {
+            return new ResponseEntity<>(sgrItemService.getItemsPaginated(pageSize, pageNumber), HttpStatus.OK);
+        }
+
+        Optional<Sort.Direction> directionOptional = Sort.Direction.fromOptionalString(sortingDirection);
+
+        if (directionOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        return new ResponseEntity<>(sgrItemService.getItemsPaginatedSorted(pageSize, pageNumber, sortingColumn, directionOptional.get()), HttpStatus.OK);
+
     }
 
     @GetMapping("/{id}")

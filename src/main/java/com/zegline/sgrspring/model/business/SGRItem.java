@@ -18,19 +18,19 @@ public class SGRItem {
     @Getter
     private String id;
 
-    @Column
-    private String item_name;
+    @Column(name = "item_name", nullable = false)
+    private String itemName;
 
-    @Column
-    private double item_weight_kg;
+    @Column(name = "item_weight_kg", nullable = false)
+    private double itemWeightKg;
 
     @OneToMany(mappedBy = "item")
     @JsonIgnore
     private List<SGRPurchase> purchases = new ArrayList<>();
 
     public SGRItem(String name, double weight) {
-        this.item_name = name;
-        this.item_weight_kg = weight;
+        this.itemName = name;
+        this.itemWeightKg = weight;
     }
 
     public SGRItem() {}
