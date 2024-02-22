@@ -43,8 +43,8 @@ public class SGRItemController {
     }
 
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity<SGRItem> deleteItem(@PathVariable String itemId) {
-        Optional<SGRItem> itemToDelete = sgrItemService.deleteItem(itemId);
+    public ResponseEntity<SGRItem> deleteItem(@PathVariable String id) {
+        Optional<SGRItem> itemToDelete = sgrItemService.deleteItem(id);
 
         if (itemToDelete.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
