@@ -1,6 +1,7 @@
 package com.zegline.sgrspring.controller.business;
 
 import com.zegline.sgrspring.model.business.SGRItem;
+import com.zegline.sgrspring.model.business.SGRPretGarantie;
 import com.zegline.sgrspring.model.business.SGRPurchase;
 import com.zegline.sgrspring.model.business.SGRStore;
 import com.zegline.sgrspring.repository.business.SGRItemRepository;
@@ -95,5 +96,18 @@ public class SGRStoreController {
     @GetMapping("/toate")
     public Page<SGRStore> getStoresPaginated(@RequestParam int pageSize, @RequestParam int pageNumber) {
         return sgrStorePagingSortingRepository.findAll(PageRequest.of(pageNumber, pageSize));
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<SGRStore> deleteStore(@PathVariable String id) {
+        Optional<SGRStore> storeToDelete = sr.findById(id);
+
+        if (storeToDelete.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        sr.deleteById(id);
+
+        return new ResponseEntity<>(storeToDelete.get(), HttpStatus.OK);
     }
 }
