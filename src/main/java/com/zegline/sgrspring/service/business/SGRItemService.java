@@ -35,7 +35,7 @@ public class SGRItemService {
     }
 
     public SGRItem createItem(String name, double weight) {
-        SGRItem item = new SGRItem(name);
+        SGRItem item = new SGRItem(name, weight);
 
         return ir.save(item);
     }

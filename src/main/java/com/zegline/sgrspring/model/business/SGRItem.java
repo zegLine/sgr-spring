@@ -28,9 +28,9 @@ public class SGRItem {
     @JsonIgnore
     private List<SGRPurchase> purchases = new ArrayList<>();
 
-    public SGRItem(String name) {
+    public SGRItem(String name, double weight) {
         this.item_name = name;
-        this.item_weight_kg = 0.0;
+        this.item_weight_kg = weight;
     }
 
     public SGRItem() {}
