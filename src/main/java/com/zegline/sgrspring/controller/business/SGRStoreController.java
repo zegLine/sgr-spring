@@ -93,7 +93,7 @@ public class SGRStoreController {
 
 
     @GetMapping("/toate")
-    public List<SGRStore> getStoresPaginated(@RequestParam int pageSize, @RequestParam int pageNumber) {
-        return sgrStorePagingSortingRepository.findAll(PageRequest.of(pageNumber, pageSize)).stream().toList();
+    public Page<SGRStore> getStoresPaginated(@RequestParam int pageSize, @RequestParam int pageNumber) {
+        return sgrStorePagingSortingRepository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 }
