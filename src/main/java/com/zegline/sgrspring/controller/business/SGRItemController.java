@@ -5,6 +5,7 @@ import com.zegline.sgrspring.model.business.SGRStore;
 import com.zegline.sgrspring.repository.business.SGRItemRepository;
 import com.zegline.sgrspring.service.business.SGRItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class SGRItemController {
     SGRItemService sgrItemService;
 
     @GetMapping("/toate")
-    public List<SGRItem> getAllItem() {
-        return sgrItemService.getItems();
+    public Page<SGRItem> getAllItem(@RequestParam int pageSize, @RequestParam int pageNumber) {
+        return sgrItemService.getItemsPaginated(pageSize, pageNumber);
     }
 
     @GetMapping("/{id}")

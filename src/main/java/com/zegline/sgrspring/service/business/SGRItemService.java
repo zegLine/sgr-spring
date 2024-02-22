@@ -2,7 +2,10 @@ package com.zegline.sgrspring.service.business;
 
 import com.zegline.sgrspring.model.business.SGRItem;
 import com.zegline.sgrspring.repository.business.SGRItemRepository;
+import com.zegline.sgrspring.repository.business.paging.SGRItemPagingSortingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,8 +19,15 @@ public class SGRItemService {
     @Autowired
     private SGRItemRepository ir;
 
+    @Autowired
+    private SGRItemPagingSortingRepository itemPagingSortingRepository;
+
     public List<SGRItem> getItems() {
         return (List<SGRItem>) ir.findAll();
+    }
+
+    public Page<SGRItem> getItemsPaginated(int pageSize, int pageNumber) {
+        return itemPagingSortingRepository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 
     public Optional<SGRItem> getItemById(String id) {
