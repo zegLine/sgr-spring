@@ -2,6 +2,7 @@ package com.zegline.sgrspring.controller.business;
 
 import com.zegline.sgrspring.model.business.SGRItem;
 import com.zegline.sgrspring.model.business.SGRStore;
+import com.zegline.sgrspring.model.dto.SGRItemRetreivePostBody;
 import com.zegline.sgrspring.model.filter.SGRFilterSelected;
 import com.zegline.sgrspring.repository.business.SGRItemRepository;
 import com.zegline.sgrspring.service.business.SGRItemService;
@@ -29,7 +30,9 @@ public class SGRItemController {
             @RequestParam int pageNumber,
             @RequestParam(required = false) String sortingColumn,
             @RequestParam(required = false) String sortingDirection,
-            @RequestBody(required = false) List<SGRFilterSelected> filters) {
+            @RequestBody(required = false) SGRItemRetreivePostBody body) {
+
+        List<SGRFilterSelected> filters = body.getFilters();
 
         if (sortingColumn == null) {
             return new ResponseEntity<>(sgrItemService.getItemsPaginated(pageSize, pageNumber, filters), HttpStatus.OK);
