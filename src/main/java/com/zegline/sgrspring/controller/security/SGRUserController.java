@@ -27,7 +27,7 @@ public class SGRUserController {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @PostMapping("/create")
+    @PostMapping("/nou")
     public ResponseEntity<?> createUser(@RequestBody SGRUser user) {
 
         if (ur.existsByUsername(user.getUsername())) {
