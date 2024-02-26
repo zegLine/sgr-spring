@@ -2,6 +2,7 @@ package com.zegline.sgrspring.controller.business;
 
 import com.zegline.sgrspring.model.business.SGRItem;
 import com.zegline.sgrspring.model.business.SGRStore;
+import com.zegline.sgrspring.model.filter.SGRFilterSelected;
 import com.zegline.sgrspring.repository.business.SGRItemRepository;
 import com.zegline.sgrspring.service.business.SGRItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,14 @@ public class SGRItemController {
     @Autowired
     SGRItemService sgrItemService;
 
-    @GetMapping("/toate")
-    public ResponseEntity<Page<SGRItem>> getAllItem(@RequestParam int pageSize, @RequestParam int pageNumber, @RequestParam(required = false) String sortingColumn, @RequestParam(required = false) String sortingDirection) {
+    @PostMapping("/toate")
+    public ResponseEntity<Page<SGRItem>> getAllItem(
+            @RequestParam int pageSize,
+            @RequestParam int pageNumber,
+            @RequestParam(required = false) String sortingColumn,
+            @RequestParam(required = false) String sortingDirection,
+            @RequestBody(required = false) Map<String, List<SGRFilterSelected>> body) {
+
         if (sortingColumn == null) {
             return new ResponseEntity<>(sgrItemService.getItemsPaginated(pageSize, pageNumber), HttpStatus.OK);
         }
