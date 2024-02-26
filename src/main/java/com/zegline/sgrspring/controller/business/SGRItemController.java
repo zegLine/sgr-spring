@@ -29,19 +29,18 @@ public class SGRItemController {
             @RequestParam int pageNumber,
             @RequestParam(required = false) String sortingColumn,
             @RequestParam(required = false) String sortingDirection,
-            @RequestBody(required = false) Map<String, List<SGRFilterSelected>> body) {
+            @RequestBody(required = false) List<SGRFilterSelected> filters) {
 
         if (sortingColumn == null) {
-            return new ResponseEntity<>(sgrItemService.getItemsPaginated(pageSize, pageNumber), HttpStatus.OK);
+            return new ResponseEntity<>(sgrItemService.getItemsPaginated(pageSize, pageNumber, filters), HttpStatus.OK);
         }
-
+        // In case user passed sorting column without direction
         Optional<Sort.Direction> directionOptional = Sort.Direction.fromOptionalString(sortingDirection);
-
         if (directionOptional.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 
-        return new ResponseEntity<>(sgrItemService.getItemsPaginatedSorted(pageSize, pageNumber, sortingColumn, directionOptional.get()), HttpStatus.OK);
+        return new ResponseEntity<>(sgrItemService.getItemsPaginatedSorted(pageSize, pageNumber, sortingColumn, directionOptional.get(), filters), HttpStatus.OK);
 
     }
 
