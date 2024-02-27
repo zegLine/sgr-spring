@@ -1,6 +1,7 @@
 package com.zegline.sgrspring.model.security.dto;
 
 import com.zegline.sgrspring.model.security.SGRRole;
+import com.zegline.sgrspring.model.security.SGRUser;
 
 import java.util.Collection;
 
@@ -15,6 +16,12 @@ public class SGRUserReturnedDto {
         this.id = id;
         this.username = username;
         this.sgrRoles = sgrRoles;
+    }
+
+    public SGRUserReturnedDto(SGRUser sgrUser) {
+        this.id = sgrUser.getId();
+        this.username = sgrUser.getUsername();
+        this.sgrRoles = sgrUser.getSgrRoles();
     }
 
     public String getId() {

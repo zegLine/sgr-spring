@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @RestController
@@ -57,6 +58,19 @@ public class SGRUserController {
         Page<SGRUserReturnedDto> usersDtoPage = usersPage.map(user -> new SGRUserReturnedDto(user.getId(), user.getUsername(), user.getSgrRoles()));
 
         return new ResponseEntity<>(usersDtoPage, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/details")
+    public ResponseEntity<SGRUserReturnedDto> getUserDetails(
+            @PathVariable String id
+    ) {
+        Optional<SGRUser> optionalSGRUser = ur.findById(id);
+
+        if (optionalSGRUser.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(new SGRUserReturnedDto(optionalSGRUser.get()), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/delete")
