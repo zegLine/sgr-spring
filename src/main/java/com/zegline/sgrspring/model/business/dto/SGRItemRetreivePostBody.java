@@ -1,4 +1,4 @@
-package com.zegline.sgrspring.model.dto;
+package com.zegline.sgrspring.model.business.dto;
 
 import com.zegline.sgrspring.model.filter.SGRFilterSelected;
 
