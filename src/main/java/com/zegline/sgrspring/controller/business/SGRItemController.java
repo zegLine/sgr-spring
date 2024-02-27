@@ -1,10 +1,8 @@
 package com.zegline.sgrspring.controller.business;
 
 import com.zegline.sgrspring.model.business.SGRItem;
-import com.zegline.sgrspring.model.business.SGRStore;
-import com.zegline.sgrspring.model.dto.SGRItemRetreivePostBody;
+import com.zegline.sgrspring.model.business.dto.SGRItemRetreivePostBody;
 import com.zegline.sgrspring.model.filter.SGRFilterSelected;
-import com.zegline.sgrspring.repository.business.SGRItemRepository;
 import com.zegline.sgrspring.service.business.SGRItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

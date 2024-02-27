@@ -1,6 +1,7 @@
 package com.zegline.sgrspring.controller.security;
 
 import com.zegline.sgrspring.model.security.SGRUser;
+import com.zegline.sgrspring.model.security.dto.SGRUserReturnedDto;
 import com.zegline.sgrspring.repository.security.SGRUserRepository;
 import com.zegline.sgrspring.repository.security.paging.SGRUserPagingSortingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,13 +48,15 @@ public class SGRUserController {
     }
 
     @PostMapping("/toate")
-    public ResponseEntity<Page<SGRUser>> getUsers(
+    public ResponseEntity<Page<SGRUserReturnedDto>> getUsers(
             @RequestParam(required = false) int pageSize,
             @RequestParam(required = false) int pageNumber
     ) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        Page<SGRUser> usersPage = sgrUserPagingSortingRepository.findAll(pageRequest);
+        Page<SGRUserReturnedDto> usersDtoPage = usersPage.map(user -> new SGRUserReturnedDto(user.getId(), user.getUsername(), user.getSgrRoles()));
 
-        return new ResponseEntity<>(sgrUserPagingSortingRepository.findAll(pageRequest), HttpStatus.OK);
+        return new ResponseEntity<>(usersDtoPage, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/delete")
