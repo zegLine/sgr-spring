@@ -1,5 +1,6 @@
 package com.zegline.sgrspring.model.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class SGRPrivilege {
     @Getter
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "sgrPrivileges")
     private Collection<SGRRole> sgrRoles;
 

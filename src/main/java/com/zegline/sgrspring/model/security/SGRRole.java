@@ -39,6 +39,12 @@ public class SGRRole {
 
     public SGRRole(){}
 
+    public void setPrivileges(Collection<SGRPrivilege> privileges) {
+        this.sgrPrivileges = privileges;
+    }
 
+    public void addPrivilege(SGRPrivilege privilege) {
+        this.sgrPrivileges.add(privilege);
+    }
 
 }
