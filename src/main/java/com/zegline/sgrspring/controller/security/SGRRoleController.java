@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +38,16 @@ public class SGRRoleController {
         rr.save(role);
 
         return new ResponseEntity<>(role, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}/privilegii")
+    public ResponseEntity<Collection<SGRPrivilege>> getRolePrivileges(@PathVariable Long id) {
+        SGRRole role = rr.findById(id).orElse(null);
+        if (role == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(role.getSgrPrivileges(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}/privilegii")
