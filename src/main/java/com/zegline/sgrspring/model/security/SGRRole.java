@@ -10,6 +10,7 @@ import java.util.Collection;
 public class SGRRole {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
