@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Entity
@@ -38,4 +39,7 @@ public class SGRUser {
     )
     private Collection<SGRRole> sgrRoles;
 
+    public void setRoles(List<SGRRole> roles) {
+        this.sgrRoles = roles;
+    }
 }

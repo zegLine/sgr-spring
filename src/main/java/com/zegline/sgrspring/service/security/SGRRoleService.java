@@ -2,12 +2,14 @@ package com.zegline.sgrspring.service.security;
 
 import com.zegline.sgrspring.model.security.SGRPrivilege;
 import com.zegline.sgrspring.model.security.SGRRole;
+import com.zegline.sgrspring.model.security.SGRUser;
 import com.zegline.sgrspring.repository.security.SGRPrivilegeRepository;
 import com.zegline.sgrspring.repository.security.SGRRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SGRRoleService {
@@ -39,6 +41,10 @@ public class SGRRoleService {
 
     public boolean roleHasPrivilege(SGRRole role, String privilege) {
         return role.getSgrPrivileges().stream().anyMatch(p -> p.getName().equals(privilege));
+    }
+
+    public List<SGRRole> getRoles(Set<Long> roleIds) {
+        return sgrRoleRepository.findAllById(roleIds);
     }
 
 }
