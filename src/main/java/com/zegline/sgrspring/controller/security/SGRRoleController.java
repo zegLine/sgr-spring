@@ -61,4 +61,16 @@ public class SGRRoleController {
 
         return new ResponseEntity<>(role, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<SGRRole> deleteRole(@PathVariable Long id) {
+        SGRRole role = rr.findById(id).orElse(null);
+        if (role == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        rr.delete(role);
+
+        return new ResponseEntity<>(role, HttpStatus.OK);
+    }
 }
