@@ -58,8 +58,8 @@ public class SGRUserController {
 
     @PostMapping("/toate")
     public ResponseEntity<Page<SGRUserReturnedDto>> getUsers(
-            @RequestParam(required = false) int pageSize,
-            @RequestParam(required = false) int pageNumber
+            @RequestParam(required = false, defaultValue = "5") int pageSize,
+            @RequestParam(required = false, defaultValue = "0") int pageNumber
     ) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         Page<SGRUser> usersPage = sgrUserPagingSortingRepository.findAll(pageRequest);
