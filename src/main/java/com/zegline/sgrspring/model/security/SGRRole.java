@@ -1,5 +1,6 @@
 package com.zegline.sgrspring.model.security;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class SGRRole {
     private Collection<SGRUser> sgrUsers;
 
     @Getter
+    @JsonProperty("privileges")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "sgrRoles_sgrPrivileges",
