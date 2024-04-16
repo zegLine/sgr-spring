@@ -72,6 +72,25 @@ public class SGRRoleController {
         return new ResponseEntity<>(role, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}/privilegii")
+    public ResponseEntity<SGRRole> deletePrivilege(@PathVariable Long id, @RequestBody Map<String, String> requestBody) {
+        SGRRole role = rr.findById(id).orElse(null);
+        if (role == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        String privilege = requestBody.get("privilege");
+        SGRPrivilege p = role.getSgrPrivileges().stream().filter(priv -> priv.getName().equals(privilege)).findFirst().orElse(null);
+        if (p == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        role.removePrivilege(p);
+        rr.save(role);
+
+        return new ResponseEntity<>(role, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<SGRRole> deleteRole(@PathVariable Long id) {
         SGRRole role = rr.findById(id).orElse(null);

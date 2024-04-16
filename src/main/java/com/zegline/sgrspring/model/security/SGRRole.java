@@ -50,4 +50,7 @@ public class SGRRole {
         this.sgrPrivileges.add(privilege);
     }
 
+    public void removePrivilege(SGRPrivilege p) {
+        this.sgrPrivileges.remove(p);
+    }
 }
