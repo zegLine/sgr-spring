@@ -40,6 +40,16 @@ public class SGRRoleController {
         return new ResponseEntity<>(role, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{id}/details")
+    public ResponseEntity<SGRRole> getRoleDetail(@PathVariable Long id) {
+        SGRRole role = rr.findById(id).orElse(null);
+        if (role == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(role, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}/privilegii")
     public ResponseEntity<Collection<SGRPrivilege>> getRolePrivileges(@PathVariable Long id) {
         SGRRole role = rr.findById(id).orElse(null);
